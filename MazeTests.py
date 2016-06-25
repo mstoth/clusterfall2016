@@ -13,6 +13,8 @@ class testMaze(unittest.TestCase):
         print "testScreenExists"
         assert type(self.m.s) == turtle._Screen
         assert self.m.s.window_width == 420
+        assert self.m.s.bgcolor() == 'blue'
+
 
 if __name__=='__main__':
     unittest.main()
