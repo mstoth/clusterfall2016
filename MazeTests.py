@@ -10,13 +10,15 @@ class testMaze(unittest.TestCase):
 
          
     def testScreenExists(self):
-        print "testScreenExists"
         assert type(self.m.s) == turtle._Screen
         assert self.m.s.window_width == 420
         assert self.m.s.bgcolor() == 'blue'
 
     def testTurtleExists(self):
         assert type(self.m.t) == turtle.Turtle
+
+    def testForMatrix(self):
+        assert len(self.m.matrix)==21
 
 
 
