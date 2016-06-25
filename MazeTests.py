@@ -15,6 +15,10 @@ class testMaze(unittest.TestCase):
         assert self.m.s.window_width == 420
         assert self.m.s.bgcolor() == 'blue'
 
+    def testTurtleExists(self):
+        assert type(self.m.t) == turtle.Turtle
+
+
 
 if __name__=='__main__':
     unittest.main()
