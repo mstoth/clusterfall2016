@@ -6,3 +6,6 @@ class Maze():
         self.s.window_width = self.size
         self.s.window_height = self.size
         self.s.bgcolor('blue')
+        self.t = turtle.Turtle()
+        self.t.penup()
+
