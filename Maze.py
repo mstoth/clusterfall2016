@@ -5,3 +5,4 @@ class Maze():
         self.size=size
         self.s.window_width = self.size
         self.s.window_height = self.size
+        self.s.bgcolor('blue')
