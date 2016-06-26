@@ -81,4 +81,5 @@ class Maze():
             self.t.color('white')
             self.t.stamp()
         self.t.goto(spos)
-        return True 
+        return True
+
