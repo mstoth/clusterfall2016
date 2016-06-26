@@ -45,7 +45,10 @@ class testMaze(unittest.TestCase):
         assert self.m.direction((0,0),(0,10))==NORTH
         assert self.m.direction((0,0),(0,-10))==SOUTH
 
-
+    def testSetMatrixValueAt(self):
+        self.m.reset()
+        self.m.setMatrixValueAt((0,0),-1)
+        assert self.m.getMatrixValueAt((0,0))==-1
 
 if __name__=='__main__':
     unittest.main()
