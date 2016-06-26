@@ -5,7 +5,12 @@ import unittest
 SIZE = 420
 
 class testMaze(unittest.TestCase):
-    
+
+    EAST=2
+    SOUTH=1
+    WEST=3
+    NORTH=0
+
     def setUp(self):
         # this checks for a Maze class
         self.m=Maze(SIZE)
@@ -31,6 +36,15 @@ class testMaze(unittest.TestCase):
         xpos = -(self.m.size/2-10)
         ypos = self.m.size/2-10
         assert self.m.getMatrixValueAt((xpos,ypos))==0 
+
+    def testDirection(self):
+        self.m.reset()
+        self.m.t.goto(0,0)
+        assert self.m.direction((0,0),(10,0))==EAST
+        assert self.m.direction((0,0),(-10,0))==WEST
+        assert self.m.direction((0,0),(0,10))==NORTH
+        assert self.m.direction((0,0),(0,-10))==SOUTH
+
 
 
 if __name__=='__main__':

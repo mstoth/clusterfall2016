@@ -20,9 +20,7 @@ class Maze():
 
     def getMatrixValueAt(self,pos):
         x = int(pos[0]+self.size/2)/self.pathWidth
-        y=(self.size/2 - pos[1])/self.pathWidth
-        print x,y
-        
+        y=(self.size/2 - pos[1])/self.pathWidth        
         if x < 0 or y < 0 or x > self.size/self.pathWidth-1 or y > self.size/self.pathWidth-1:
             return -1
         else:
