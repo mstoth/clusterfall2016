@@ -26,6 +26,12 @@ class testMaze(unittest.TestCase):
         assert self.m.matrix[0][0]==0
         assert self.m.t.pos()==(-(SIZE/2-10),SIZE/2-10)
 
+    def testGetMatrixValueAt(self):
+        self.m.reset()
+        xpos = -(self.m.size/2-10)
+        ypos = self.m.size/2-10
+        assert self.m.getMatrixValueAt((xpos,ypos))==0 
+
 
 if __name__=='__main__':
     unittest.main()
