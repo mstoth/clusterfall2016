@@ -8,4 +8,5 @@ class Maze():
         self.s.bgcolor('blue')
         self.t = turtle.Turtle()
         self.t.penup()
+        self.matrix = [[1 for i in range(21)] for j in range(21)]
 
