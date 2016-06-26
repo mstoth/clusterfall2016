@@ -6,6 +6,15 @@ SOUTH=1
 WEST=3
 NORTH=0
 
+
+EMPTY=0
+WALL=1
+GOAL=2
+VISITED=3
+FAILED=4
+INVALID=-1
+
+
 class Maze():
     def __init__(self,size=420,pathWidth=20):
         self.size=size
@@ -46,3 +55,30 @@ class Maze():
                 return EAST
             else:
                 return WEST
+
+    def setMatrixValueAt(self,pos,value):
+        x=int(pos[0]+self.size/2)/self.pathWidth
+        y=(self.size/self.pathWidth)-int((pos[1]+self.size/2)/self.pathWidth)-1
+        try:
+            self.matrix[x][y]=value
+        except:
+            return False
+        spos = self.t.pos()
+        self.t.goto(pos)
+        if value == WALL:
+            self.t.color('blue')
+            self.t.stamp()
+        elif value == VISITED:
+            self.t.color('green')
+            self.t.stamp()
+        elif value == FAILED:
+            self.t.color('red')
+            self.t.stamp()
+        elif value == GOAL:
+            self.t.color('yellow')
+            self.t.stamp()
+        else:
+            self.t.color('white')
+            self.t.stamp()
+        self.t.goto(spos)
+        return True 

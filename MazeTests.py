@@ -50,5 +50,6 @@ class testMaze(unittest.TestCase):
         self.m.setMatrixValueAt((0,0),-1)
         assert self.m.getMatrixValueAt((0,0))==-1
 
+
 if __name__=='__main__':
     unittest.main()
