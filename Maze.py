@@ -83,3 +83,20 @@ class Maze():
         self.t.goto(spos)
         return True
 
+    def dig(self,direction):
+        oldpos=self.t.pos()
+        if direction == EAST:
+            self.t.goto(oldpos[0]+self.pathWidth,oldpos[1])
+        if direction == SOUTH:
+            self.t.goto(oldpos[0],oldpos[1]-self.pathWidth)
+        if direction == WEST:
+            self.t.goto(oldpos[0]-self.pathWidth,oldpos[1])
+        if direction == NORTH:
+            self.t.goto(oldpos[0],oldpos[1]+self.pathWidth)
+        if self.getMatrixValueAt(self.t.pos())==WALL:
+            self.setMatrixValueAt(self.t.pos(),EMPTY)
+        else:
+            self.t.goto(oldpos[0],oldpos[1])
+        return self.t.pos()
+                        
+
