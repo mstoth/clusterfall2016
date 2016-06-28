@@ -56,7 +56,74 @@ class testMaze(unittest.TestCase):
         assert self.m.tooClose(EAST)==False
         assert self.m.tooClose(SOUTH)==False
         assert self.m.tooClose(WEST)==True
-        
+
+    def testDig(self):
+        self.m.reset()
+        spos = self.m.t.pos()
+        self.m.dig(EAST)
+        assert self.m.t.pos()==(spos[0]+self.m.pathWidth,spos[1])
+        spos=self.m.t.pos()
+        self.m.dig(SOUTH)
+        assert self.m.t.pos()==(spos[0],spos[1]-self.m.pathWidth)
+        spos=self.m.t.pos()
+        self.m.dig(WEST)
+        assert self.m.t.pos()==(spos[0],spos[1])
+        self.m.t.goto(0,0)
+        self.m.dig(NORTH)
+        assert self.m.t.pos()==(0,self.m.pathWidth)
+
+        # make sure we can't dig west from a reset
+        self.m.reset()
+        spos = self.m.t.pos()
+        self.m.dig(WEST)
+        assert self.m.t.pos()==spos
+        # make sure we can't dig north from a reset
+        self.m.reset()
+        self.m.dig(NORTH)
+        assert self.m.t.pos()==spos
+        # make sure we can't dig east from the right hand corner
+        self.m.reset()
+        self.m.t.goto(self.m.size/2-self.m.pathWidth/2,self.m.size/2-self.m.pathWidth/2)
+        spos=self.m.t.pos()
+        self.m.dig(EAST)
+        assert self.m.t.pos()==spos
+        # make sure we can't dig south from the lower right hand corner
+        self.m.reset()
+        self.m.t.goto((self.m.size/2-self.m.pathWidth/2,-(self.m.size/2-self.m.pathWidth/2)))
+        spos=self.m.t.pos()
+        self.m.dig(SOUTH)
+        assert self.m.t.pos()==spos
+        # make sure we can't dig east
+        # if it would break through to an existing space
+        self.m.reset()
+        self.m.setMatrixValueAt((-(self.m.size/2-5*self.m.pathWidth/2),self.m.size/2-self.m.pathWidth/2),0)
+        spos=self.m.t.pos()
+        self.m.dig(EAST)
+        assert self.m.t.pos()==spos
+        # make sure we can't dig south
+        # if it would break through to an existing space
+        self.m.reset()
+        self.m.setMatrixValueAt((-(self.m.size/2-self.m.pathWidth/2),self.m.size/2-5*self.m.pathWidth/2),0)
+        spos=self.m.t.pos()
+        self.m.dig(SOUTH)
+        assert self.m.t.pos()==spos
+        # make sure we can't dig west
+        # if it would break through to an existing space
+        self.m.reset()
+        self.m.setMatrixValueAt((-(self.m.size/2-5*self.m.pathWidth/2),self.m.size/2-self.m.pathWidth/2),0)
+        self.m.t.goto(-(self.m.size/2-5*self.m.pathWidth/2),self.m.size/2-self.m.pathWidth/2)
+        spos=self.m.t.pos()
+        self.m.dig(WEST)
+        assert self.m.t.pos()==spos
+        # make sure we can't dig north
+        # if it would break through to an existing space
+        self.m.reset()
+        self.m.setMatrixValueAt((-(self.m.size/2-self.m.pathWidth/2),self.m.size/2-5*self.m.pathWidth/2),0)
+        self.m.t.goto(-(self.m.size/2-self.m.pathWidth/2),self.m.size/2-5*self.m.pathWidth/2)
+        spos=self.m.t.pos()
+        self.m.dig(NORTH)
+        assert self.m.t.pos()==spos
+
 
 
 if __name__=='__main__':
