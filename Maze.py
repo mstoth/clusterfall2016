@@ -84,3 +84,49 @@ class Maze():
         return True
             
 
+    def tooClose(self,direction):
+        spos = self.t.pos()
+        x=int(spos[0]+self.size/2)/self.pathWidth
+        y=(self.size/self.pathWidth)-int((spos[1]+self.size/2)/self.pathWidth)-1
+        
+        if direction == EAST:
+            if x==self.size/self.pathWidth-1:
+                return True
+            try:
+                if self.matrix[x+1][y-1] == WALL and self.matrix[x+1][y+1]==WALL and \
+                   self.matrix[x+1][y] == WALL:
+                    return False
+            except:
+                return True
+            return True
+        if direction == SOUTH:
+            if y==self.size/self.pathWidth-1:
+                return True
+            try:
+                if self.matrix[x+1][y+1] == WALL and self.matrix[x-1][y+1]==WALL and \
+                   self.matrix[x][y+1] == WALL:
+                    return False
+            except:
+                return True
+            return True
+        if direction == WEST:
+            if x==0:
+                return True
+            try:
+                if self.matrix[x-1][y-1] == WALL and self.matrix[x-1][y+1]==WALL and \
+                   self.matrix[x-1][y] == WALL:
+                    return False
+            except:
+                return True
+            return True
+        if direction == NORTH:
+            if y==0:
+                return True
+            try:
+                if self.matrix[x][y+1] == WALL and self.matrix[x-1][y+1]==WALL and \
+                   self.matrix[x+1][y+1] == WALL :
+                    return False
+            except:
+                return True
+            return True
+
