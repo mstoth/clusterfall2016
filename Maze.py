@@ -28,7 +28,7 @@ class Maze():
         self.s.bgcolor('blue')
         self.t = turtle.Turtle()
         self.t.penup()
-        self.matrix = [[1 for i in range(self.size/self.pathWidth)] for j in range(21)]
+        self.matrix = [[1 for i in range(self.size/self.pathWidth)] for j in range(self.size/self.pathWidth)]
         self.t.goto(-(self.size/2-self.pathWidth/2),self.size/2-self.pathWidth/2)
         self.matrix[0][0]=EMPTY
 
@@ -82,21 +82,5 @@ class Maze():
             self.t.stamp()
         self.t.goto(spos)
         return True
-
-    def dig(self,direction):
-        oldpos=self.t.pos()
-        if direction == EAST:
-            self.t.goto(oldpos[0]+self.pathWidth,oldpos[1])
-        if direction == SOUTH:
-            self.t.goto(oldpos[0],oldpos[1]-self.pathWidth)
-        if direction == WEST:
-            self.t.goto(oldpos[0]-self.pathWidth,oldpos[1])
-        if direction == NORTH:
-            self.t.goto(oldpos[0],oldpos[1]+self.pathWidth)
-        if self.getMatrixValueAt(self.t.pos())==WALL:
-            self.setMatrixValueAt(self.t.pos(),EMPTY)
-        else:
-            self.t.goto(oldpos[0],oldpos[1])
-        return self.t.pos()
-                        
+            
 

@@ -50,20 +50,14 @@ class testMaze(unittest.TestCase):
         self.m.setMatrixValueAt((0,0),-1)
         assert self.m.getMatrixValueAt((0,0))==-1
 
-    def testDig(self):
+    def testTooClose(self):
         self.m.reset()
-        spos = self.m.t.pos()
-        self.m.dig(EAST)
-        assert self.m.t.pos()==(spos[0]+self.m.pathWidth,spos[1])
-        spos=self.m.t.pos()
-        self.m.dig(SOUTH)
-        assert self.m.t.pos()==(spos[0],spos[1]-self.m.pathWidth)
-        spos=self.m.t.pos()
-        self.m.dig(WEST)
-        assert self.m.t.pos()==(spos[0]-self.m.pathWidth,spos[1])
-        self.m.t.goto(0,0)
-        self.m.dig(NORTH)
-        assert self.m.t.pos()==(0,self.m.pathWidth)
+        assert self.m.tooClose(NORTH)==True
+        assert self.m.tooClose(EAST)==False
+        assert self.m.tooClose(SOUTH)==False
+        assert self.m.tooClose(WEST)==True
+        
+
 
 if __name__=='__main__':
     unittest.main()
