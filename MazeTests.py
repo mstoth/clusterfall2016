@@ -124,6 +124,31 @@ class testMaze(unittest.TestCase):
         self.m.dig(NORTH)
         assert self.m.t.pos()==spos
 
+    def testReturnValuesOfDig(self):
+        self.m.reset()
+        self.m.t.goto((-110,110))
+        assert self.m.dig(EAST)==(-90,110)
+        self.m.reset()
+        self.m.t.goto((-110,110))
+        assert self.m.dig(SOUTH)==(-110,90)
+        self.m.reset()
+        self.m.t.goto((-110,110))
+        assert self.m.dig(NORTH)==(-110,130)
+        self.m.reset()
+        self.m.t.goto((-110,110))
+        assert self.m.dig(WEST)==(-130,110)
+        
+    def testDigRefusesIfCornersAreEmpty(self):
+        self.m.reset()
+        self.m.setMatrixValueAt((-160,180),0)
+        assert self.m.dig(EAST)==(-190,190)
+        self.m.reset()
+        self.m.setMatrixValueAt((-170,150),0)
+        assert self.m.dig(SOUTH)==(-190,190)
+        self.m.reset()
+        self.m.setMatrixValueAt((-170,150),0)
+        self.m.t.goto(-170,150)
+        assert self.m.dig(NORTH)==(-170,150)
 
 
 if __name__=='__main__':
