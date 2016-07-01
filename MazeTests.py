@@ -180,6 +180,16 @@ class testMaze(unittest.TestCase):
         self.m.dig(NORTH)
         assert self.m.t.pos()==(0,0)
 
+    def testNeighbors(self):
+        print 'testNeighbors'
+        self.m.reset()
+        va=[]
+        n=self.m.neighbors()
+        for nn in n:
+            va.append(nn[1])
+        assert va == [-1,1,1,-1]
+
+
 
 if __name__=='__main__':
     unittest.main()
