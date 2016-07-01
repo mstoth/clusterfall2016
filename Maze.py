@@ -28,6 +28,7 @@ class Maze():
         self.s.bgcolor('blue')
         self.t = turtle.Turtle()
         self.t.penup()
+        self.t.shape("square")
         self.matrix = [[1 for i in range(self.size/self.pathWidth)] for j in range(self.size/self.pathWidth)]
         self.t.goto(-(self.size/2-self.pathWidth/2),self.size/2-self.pathWidth/2)
         self.matrix[0][0]=EMPTY
@@ -94,7 +95,9 @@ class Maze():
                 return True
             try:
                 if self.matrix[x+1][y-1] == WALL and self.matrix[x+1][y+1]==WALL and \
-                   self.matrix[x+1][y] == WALL:
+                   self.matrix[x+1][y] == WALL and \
+                   self.matrix[x+2][y-1] == WALL and self.matrix[x+2][y+1]==WALL and \
+                   self.matrix[x+2][y] == WALL:
                     return False
             except:
                 return True
@@ -104,7 +107,9 @@ class Maze():
                 return True
             try:
                 if self.matrix[x+1][y+1] == WALL and self.matrix[x-1][y+1]==WALL and \
-                   self.matrix[x][y+1] == WALL:
+                   self.matrix[x][y+1] == WALL and \
+                   self.matrix[x+1][y+2] == WALL and self.matrix[x-1][y+2]==WALL and \
+                   self.matrix[x][y+2] == WALL:
                     return False
             except:
                 return True
@@ -114,7 +119,9 @@ class Maze():
                 return True
             try:
                 if self.matrix[x-1][y-1] == WALL and self.matrix[x-1][y+1]==WALL and \
-                   self.matrix[x-1][y] == WALL:
+                   self.matrix[x-1][y] == WALL and \
+                   self.matrix[x-2][y-1] == WALL and self.matrix[x-2][y+1]==WALL and \
+                   self.matrix[x-2][y] == WALL:
                     return False
             except:
                 return True
@@ -123,8 +130,10 @@ class Maze():
             if y==0:
                 return True
             try:
-                if self.matrix[x][y+1] == WALL and self.matrix[x-1][y+1]==WALL and \
-                   self.matrix[x+1][y+1] == WALL :
+                if self.matrix[x][y-1] == WALL and self.matrix[x-1][y-1]==WALL and \
+                   self.matrix[x+1][y-1] == WALL and \
+                   self.matrix[x][y-2] == WALL and self.matrix[x-1][y-2]==WALL and \
+                   self.matrix[x+1][y-2] == WALL:
                     return False
             except:
                 return True
@@ -134,19 +143,19 @@ class Maze():
         oldpos=self.t.pos()
         if direction == EAST:
             self.t.goto(oldpos[0]+self.pathWidth,oldpos[1])
-            tooClose = self.tooClose(EAST)               
+            toooClose = self.tooClose(EAST)               
         if direction == SOUTH:
             self.t.goto(oldpos[0],oldpos[1]-self.pathWidth)
-            tooClose = self.tooClose(SOUTH)
+            toooClose = self.tooClose(SOUTH)
         if direction == WEST:
             self.t.goto(oldpos[0]-self.pathWidth,oldpos[1])
-            tooClose = self.tooClose(WEST)
+            toooClose = self.tooClose(WEST)
         if direction == NORTH:
             self.t.goto(oldpos[0],oldpos[1]+self.pathWidth)
-            tooClose = self.tooClose(NORTH)
+            toooClose = self.tooClose(NORTH)
         spos = self.t.pos()
         
-        if self.getMatrixValueAt(spos)==WALL and not tooClose:
+        if self.getMatrixValueAt(spos)==WALL and not toooClose:
             self.setMatrixValueAt(self.t.pos(),EMPTY)
         else:
             self.t.goto(oldpos[0],oldpos[1])
