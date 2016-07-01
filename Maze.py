@@ -161,3 +161,28 @@ class Maze():
             self.t.goto(oldpos[0],oldpos[1])
         return self.t.pos()
                         
+
+    def neighbors(self):
+        p=self.t.position()
+        r=[]
+        # North
+        if p[1]+2*self.pathWidth>(self.size/2-self.pathWidth/2):
+            r.append([(p[0],p[1]+2*self.pathWidth),-1])
+        else:
+            r.append([(p[0],p[1]+2*self.pathWidth),self.getMatrixValueAt((p[0],p[1]+2*self.pathWidth))])
+        # South
+        if p[1]-2*self.pathWidth<-(self.size/2-self.pathWidth/2):
+            r.append([(p[0],p[1]-2*self.pathWidth),-1])
+        else:
+            r.append([(p[0],p[1]-2*self.pathWidth),self.getMatrixValueAt((p[0],p[1]-2*self.pathWidth))])
+        # East
+        if p[0]+2*self.pathWidth>(self.size/2-self.pathWidth/2):
+            r.append([(p[0]+2*self.pathWidth,p[1]),-1])
+        else:
+            r.append([(p[0]+2*self.pathWidth,p[1]),self.getMatrixValueAt((p[0]+2*self.pathWidth,p[1]))])
+        # West
+        if p[0]-2*self.pathWidth<-(self.size/2-self.pathWidth/2):
+            r.append([(p[0]-2*self.pathWidth,p[1]),-1])
+        else:
+            r.append([(p[0]-2*self.pathWidth,p[1]),self.getMatrixValueAt((p[0]-2*self.pathWidth,p[1]))])
+        return r
