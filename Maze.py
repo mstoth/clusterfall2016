@@ -227,4 +227,47 @@ class Maze():
             self.t.stamp()
         return self.t.pos()
                
+    def immediateNeighbors(self):
+        p=self.t.position()
+        r=[]
+        if p[1]+self.pathWidth>(self.size/2-self.pathWidth/2):
+            r.append([self.t.position(),-1])
+        else:
+            r.append([(p[0],p[1]+self.pathWidth),self.getMatrixValueAt((p[0],p[1]+self.pathWidth))])
+        if p[1]-self.pathWidth<-(self.size/2-self.pathWidth/2):
+            r.append([self.t.position(),-1])
+        else:
+            r.append([(p[0],p[1]-self.pathWidth),self.getMatrixValueAt((p[0],p[1]-self.pathWidth))])
+        if p[0]+self.pathWidth>(self.size/2-self.pathWidth/2):
+            r.append([self.t.position(),-1])
+        else:
+            r.append([(p[0]+self.pathWidth,p[1]),self.getMatrixValueAt((p[0]+self.pathWidth,p[1]))])
+        if p[0]-self.pathWidth<-(self.size/2-self.pathWidth/2):
+            r.append([self.t.position(),-1])
+        else:
+            r.append([(p[0]-self.pathWidth,p[1]),self.getMatrixValueAt((p[0]-self.pathWidth,p[1]))])
+        return r
 
+
+    def emptyNeighbors(self):
+        n=self.immediateNeighbors()
+        nEmpty=0
+        for nn in n:    
+            if nn[1]==EMPTY:
+                nEmpty += 1
+        return nEmpty
+    
+
+    def travel2BranchOrWall(self,direction):
+        
+        if self.immediateNeighbors()[direction][1]==EMPTY:
+            oldpos = self.t.pos()
+            if oldpos == self.travel(direction):
+                return self.t.pos()
+            while self.immediateNeighbors()[direction][1]==EMPTY and \
+                  self.emptyNeighbors()==1:
+                self.travel(direction)
+            self.setMatrixValueAt(self.t.pos(),VISITED)
+            if self.immediateNeighbors()[direction][1]==GOAL:
+                self.t.goto(self.immediateNeighbors()[direction][0])
+        return self.t.pos()
