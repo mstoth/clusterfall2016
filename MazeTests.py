@@ -198,7 +198,7 @@ class testMaze(unittest.TestCase):
         self.m.dig(SOUTH)
         self.m.dig(WEST)
         self.m.dig(WEST)
-        assert self.m.t.pos() = (spos[0],spos[1]-2*self.m.pathWidth)
+        assert self.m.t.pos() == (spos[0],spos[1]-2*self.m.pathWidth)
 
 if __name__=='__main__':
     unittest.main()

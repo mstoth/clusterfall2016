@@ -26,6 +26,7 @@ class Maze():
         self.s = turtle.Screen()
         self.s.window_width = self.size
         self.s.window_height = self.size
+        self.s.clear()
         self.s.bgcolor('blue')
         self.t = turtle.Turtle()
         self.t.penup()
@@ -95,8 +96,9 @@ class Maze():
             if x==self.size/self.pathWidth-1:
                 return True
             try:
-                if self.matrix[x+1][y-1] == WALL and self.matrix[x+1][y+1]==WALL and \
-                   self.matrix[x+1][y] == WALL:
+                if self.matrix[x+2][y-1] == WALL and self.matrix[x+2][y+1]==WALL and \
+                   self.matrix[x+1][y-1] == WALL and self.matrix[x+1][y+1]==WALL and \
+                   self.matrix[x+2][y] == WALL:
                     return False
             except:
                 return True
@@ -105,8 +107,9 @@ class Maze():
             if y==self.size/self.pathWidth-1:
                 return True
             try:
-                if self.matrix[x+1][y+1] == WALL and self.matrix[x-1][y+1]==WALL and \
-                   self.matrix[x][y+1] == WALL:
+                if self.matrix[x+1][y+2] == WALL and self.matrix[x-1][y+2]==WALL and \
+                   self.matrix[x+1][y+1] == WALL and self.matrix[x-1][y+1]==WALL and \
+                   self.matrix[x][y+2] == WALL:
                     return False
             except:
                 return True
@@ -115,8 +118,9 @@ class Maze():
             if x==0:
                 return True
             try:
-                if self.matrix[x-1][y-1] == WALL and self.matrix[x-1][y+1]==WALL and \
-                   self.matrix[x-1][y] == WALL:
+                if self.matrix[x-2][y-1] == WALL and self.matrix[x-2][y+1]==WALL and \
+                   self.matrix[x-2][y] == WALL and self.matrix[x-1][y+1]==WALL and\
+                   self.matrix[x-1][y-1]==WALL:
                     return False
             except:
                 return True
@@ -125,8 +129,9 @@ class Maze():
             if y==0:
                 return True
             try:
-                if self.matrix[x][y-1] == WALL and self.matrix[x-1][y-1]==WALL and \
-                   self.matrix[x+1][y-1] == WALL:
+                if self.matrix[x][y-2] == WALL and self.matrix[x-1][y-2]==WALL and \
+                   self.matrix[x+1][y-2] == WALL and self.matrix[x-1][y-1]==WALL \
+                   and self.matrix[x+1][y-1]==WALL:
                     return False
             except:
                 return True
