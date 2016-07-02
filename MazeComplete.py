@@ -197,7 +197,6 @@ class Maze(object):
         return nEmpty
     
     def travel2BranchOrWall(self,direction):
-        
         if self.immediateNeighbors()[direction][1]==EMPTY:
             oldpos = self.t.pos()
             if oldpos == self.travel(direction):

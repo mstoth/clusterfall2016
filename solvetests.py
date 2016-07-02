@@ -35,6 +35,14 @@ class testMaze(unittest.TestCase):
         assert self.m.matrix[0][0]==VISITED
         assert self.m.matrix[9][0]==VISITED
 
+    def testTravel2BranchOrWallWithTurn(self):
+        self.m.reset()
+        [self.m.dig(EAST) for i in range(10)]
+        spos=self.m.t.pos()
+        [self.m.dig(SOUTH) for i in range(10)]
+        self.m.t.goto(-self.m.size/2+self.m.pathWidth/2,self.m.size/2-self.m.pathWidth/2)
+        self.m.travel2BranchOrWall(EAST)
+        assert self.m.t.pos()==spos,"got "+str(self.m.t.pos())
 
 
 if __name__=='__main__':
