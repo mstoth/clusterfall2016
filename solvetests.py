@@ -27,6 +27,15 @@ class testMaze(unittest.TestCase):
         [self.m.travel(WEST) for i in range(3)]
         assert self.m.matrix[2][0]==FAILED
 
+    def testTravel2BranchOrWall(self):
+        self.m.reset()
+        [self.m.dig(EAST) for i in range(10)]
+        self.m.t.goto(-self.m.size/2+self.m.pathWidth/2,self.m.size/2-self.m.pathWidth/2)
+        self.m.travel2BranchOrWall(EAST)
+        assert self.m.matrix[0][0]==VISITED
+        assert self.m.matrix[9][0]==VISITED
+
+
 
 if __name__=='__main__':
     unittest.main()

@@ -37,7 +37,7 @@ class Maze():
         self.t.shape("custom")
         self.matrix = [[1 for i in range(self.size/self.pathWidth)] for j in range(self.size/self.pathWidth)]
         self.t.goto(-(self.size/2-self.pathWidth/2),self.size/2-self.pathWidth/2)
-        self.matrix[0][0]=EMPTY
+        self.matrix[0][0]=VISITED
 
     def getMatrixValueAt(self,pos):
         x = int(pos[0]+self.size/2)/self.pathWidth
