@@ -1,2 +1,4 @@
 MazeComplete.py
 testmaze2.py
+*.pyc
+*.py~
