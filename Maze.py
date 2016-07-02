@@ -30,7 +30,11 @@ class Maze():
         self.s.bgcolor('blue')
         self.t = turtle.Turtle()
         self.t.penup()
-        self.t.shape("square")
+        self.s.register_shape("custom",((self.pathWidth/2,self.pathWidth/2),\
+                                        (-self.pathWidth/2,self.pathWidth/2),\
+                                        (-self.pathWidth/2,-self.pathWidth/2),(self.pathWidth/2,-self.pathWidth/2),\
+                                        (self.pathWidth/2,self.pathWidth/2)))
+        self.t.shape("custom")
         self.matrix = [[1 for i in range(self.size/self.pathWidth)] for j in range(self.size/self.pathWidth)]
         self.t.goto(-(self.size/2-self.pathWidth/2),self.size/2-self.pathWidth/2)
         self.matrix[0][0]=EMPTY
