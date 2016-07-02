@@ -17,7 +17,7 @@ INVALID=-1
 
 
 class Maze():
-    def __init__(self,size=420,pathWidth=20):
+    def __init__(self,size=440,pathWidth=20):
         self.size=size
         self.pathWidth=pathWidth
         self.reset()
@@ -38,6 +38,7 @@ class Maze():
         self.matrix = [[1 for i in range(self.size/self.pathWidth)] for j in range(self.size/self.pathWidth)]
         self.t.goto(-(self.size/2-self.pathWidth/2),self.size/2-self.pathWidth/2)
         self.matrix[0][0]=VISITED
+        self.home = self.t.pos()
 
     def getMatrixValueAt(self,pos):
         x = int(pos[0]+self.size/2)/self.pathWidth
@@ -185,6 +186,11 @@ class Maze():
         return r
 
     def create(self):
+        self.createNoGoal()
+        self.setMatrixValueAt((self.size/2-(3*self.pathWidth/2),-self.size/2 + (3*self.pathWidth/2)),GOAL)
+        
+        
+    def createNoGoal(self):
         spos=self.t.pos()
         n=self.neighbors()
         while len(n)>0:
@@ -194,24 +200,24 @@ class Maze():
             if nchoice[1]==WALL:
                 d=self.direction(self.t.pos(),nchoice[0])
                 if not self.dig(d)==self.dig(d):
-                    self.create()
+                    self.createNoGoal()
                     
     def travel(self,direction):
         if direction == EAST:
             if self.getMatrixValueAt((self.t.pos()[0]+self.pathWidth,self.t.pos()[1]))==WALL or \
                self.getMatrixValueAt((self.t.pos()[0]+self.pathWidth,self.t.pos()[1]))==INVALID:
                 return self.t.pos()
-            self.t.goto(self.t.pos()[0]+20,self.t.pos()[1])
+            self.t.goto(self.t.pos()[0]+self.pathWidth,self.t.pos()[1])
         if direction == WEST:
             if self.getMatrixValueAt((self.t.pos()[0]-self.pathWidth,self.t.pos()[1]))==WALL or \
                self.getMatrixValueAt((self.t.pos()[0]-self.pathWidth,self.t.pos()[1]))==INVALID:
                 return self.t.pos()
-            self.t.goto(self.t.pos()[0]-20,self.t.pos()[1])
+            self.t.goto(self.t.pos()[0]-self.pathWidth,self.t.pos()[1])
         if direction == NORTH:
             if self.getMatrixValueAt((self.t.pos()[0],self.t.pos()[1]+self.pathWidth))==WALL or \
                self.getMatrixValueAt((self.t.pos()[0],self.t.pos()[1]+self.pathWidth))==INVALID:
                 return self.t.pos()
-            self.t.goto(self.t.pos()[0],self.t.pos()[1]+20)
+            self.t.goto(self.t.pos()[0],self.t.pos()[1]+self.pathWidth)
         if direction == SOUTH:
             if self.getMatrixValueAt((self.t.pos()[0],self.t.pos()[1]-self.pathWidth))==WALL or \
                self.getMatrixValueAt((self.t.pos()[0],self.t.pos()[1]-self.pathWidth))==INVALID:
@@ -271,3 +277,36 @@ class Maze():
             if self.immediateNeighbors()[direction][1]==GOAL:
                 self.t.goto(self.immediateNeighbors()[direction][0])
         return self.t.pos()
+
+
+    def solve(self):
+        if self.getMatrixValueAt(self.t.pos())==GOAL:
+            return True
+        else:
+            savedpos=self.t.pos()
+            for d in [EAST,NORTH,WEST,SOUTH]:
+                if self.travel2BranchOrWall(d) != savedpos:
+                    if self.solve():
+                        return True
+                    else:
+                        self.backtrack(savedpos)
+
+    def backtrack(self,pos):
+        self.setMatrixValueAt(self.t.pos(),FAILED)
+        if self.t.pos()[0]>pos[0]:
+            while self.t.pos()[0]>pos[0]:
+                self.travel(WEST)
+        elif self.t.pos()[0]<pos[0]:
+            while self.t.pos()[0]<pos[0]:
+                self.travel(EAST)
+        elif self.t.pos()[1]>pos[1]:
+            while self.t.pos()[1]>pos[1]:
+                self.travel(SOUTH)
+        elif self.t.pos()[1]<pos[1]:
+            while self.t.pos()[1]<pos[1]:
+                self.travel(NORTH)
+        self.setMatrixValueAt(self.t.pos(),VISITED)
+
+
+
+

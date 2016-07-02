@@ -45,5 +45,17 @@ class testMaze(unittest.TestCase):
         assert self.m.t.pos()==spos,"got "+str(self.m.t.pos())
 
 
+    def testTravel2BranchOrWallWithTurnToGoal(self):
+        self.m.reset()
+        [self.m.dig(EAST) for i in range(10)]
+        [self.m.dig(SOUTH) for i in range(10)]
+        self.m.setMatrixValueAt(self.m.t.pos(),GOAL)
+        self.m.t.color('yellow')
+        self.m.t.stamp()
+        self.m.t.color('white')
+        self.m.t.goto(self.m.home)
+        assert self.m.solve()==True
+
+
 if __name__=='__main__':
     unittest.main()
