@@ -134,21 +134,16 @@ class Maze():
 
     def dig(self,direction):
         oldpos=self.t.pos()
-        if direction == EAST:
+        if direction == EAST and not self.tooClose(EAST):
             self.t.goto(oldpos[0]+self.pathWidth,oldpos[1])
-            toooClose = self.tooClose(EAST)               
-        if direction == SOUTH:
+        if direction == SOUTH and not self.tooClose(SOUTH):
             self.t.goto(oldpos[0],oldpos[1]-self.pathWidth)
-            toooClose = self.tooClose(SOUTH)
-        if direction == WEST:
+        if direction == WEST and not self.tooClose(WEST):
             self.t.goto(oldpos[0]-self.pathWidth,oldpos[1])
-            toooClose = self.tooClose(WEST)
-        if direction == NORTH:
+        if direction == NORTH and not self.tooClose(NORTH):
             self.t.goto(oldpos[0],oldpos[1]+self.pathWidth)
-            toooClose = self.tooClose(NORTH)
-        spos = self.t.pos()
-        
-        if self.getMatrixValueAt(spos)==WALL and not toooClose:
+        spos = self.t.pos()      
+        if self.getMatrixValueAt(spos)==WALL:
             self.setMatrixValueAt(self.t.pos(),EMPTY)
         else:
             self.t.goto(oldpos[0],oldpos[1])
