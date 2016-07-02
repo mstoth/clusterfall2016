@@ -1,4 +1,5 @@
 from Maze import *
+import random
 import turtle
 import unittest
 
@@ -181,7 +182,6 @@ class testMaze(unittest.TestCase):
         assert self.m.t.pos()==(0,0)
 
     def testNeighbors(self):
-        print 'testNeighbors'
         self.m.reset()
         va=[]
         n=self.m.neighbors()
@@ -189,7 +189,16 @@ class testMaze(unittest.TestCase):
             va.append(nn[1])
         assert va == [-1,1,1,-1]
 
-
+    def testBackToWall(self):
+        self.m.reset()
+        spos = self.m.t.pos()
+        self.m.dig(EAST)
+        self.m.dig(EAST)
+        self.m.dig(SOUTH)
+        self.m.dig(SOUTH)
+        self.m.dig(WEST)
+        self.m.dig(WEST)
+        assert self.m.t.pos() = (spos[0],spos[1]-2*self.m.pathWidth)
 
 if __name__=='__main__':
     unittest.main()

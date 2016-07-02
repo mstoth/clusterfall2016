@@ -1,4 +1,5 @@
 import turtle
+import random
 EMPTY=0
 
 EAST=2
@@ -95,9 +96,7 @@ class Maze():
                 return True
             try:
                 if self.matrix[x+1][y-1] == WALL and self.matrix[x+1][y+1]==WALL and \
-                   self.matrix[x+1][y] == WALL and \
-                   self.matrix[x+2][y-1] == WALL and self.matrix[x+2][y+1]==WALL and \
-                   self.matrix[x+2][y] == WALL:
+                   self.matrix[x+1][y] == WALL:
                     return False
             except:
                 return True
@@ -107,9 +106,7 @@ class Maze():
                 return True
             try:
                 if self.matrix[x+1][y+1] == WALL and self.matrix[x-1][y+1]==WALL and \
-                   self.matrix[x][y+1] == WALL and \
-                   self.matrix[x+1][y+2] == WALL and self.matrix[x-1][y+2]==WALL and \
-                   self.matrix[x][y+2] == WALL:
+                   self.matrix[x][y+1] == WALL:
                     return False
             except:
                 return True
@@ -119,9 +116,7 @@ class Maze():
                 return True
             try:
                 if self.matrix[x-1][y-1] == WALL and self.matrix[x-1][y+1]==WALL and \
-                   self.matrix[x-1][y] == WALL and \
-                   self.matrix[x-2][y-1] == WALL and self.matrix[x-2][y+1]==WALL and \
-                   self.matrix[x-2][y] == WALL:
+                   self.matrix[x-1][y] == WALL:
                     return False
             except:
                 return True
@@ -131,9 +126,7 @@ class Maze():
                 return True
             try:
                 if self.matrix[x][y-1] == WALL and self.matrix[x-1][y-1]==WALL and \
-                   self.matrix[x+1][y-1] == WALL and \
-                   self.matrix[x][y-2] == WALL and self.matrix[x-1][y-2]==WALL and \
-                   self.matrix[x+1][y-2] == WALL:
+                   self.matrix[x+1][y-1] == WALL:
                     return False
             except:
                 return True
@@ -186,3 +179,18 @@ class Maze():
         else:
             r.append([(p[0]-2*self.pathWidth,p[1]),self.getMatrixValueAt((p[0]-2*self.pathWidth,p[1]))])
         return r
+
+    def create(self):
+        spos=self.t.pos()
+        n=self.neighbors()
+        while len(n)>0:
+            self.t.goto(spos[0],spos[1])
+            nchoice=random.choice(n)
+            n.remove(nchoice)
+            if nchoice[1]==WALL:
+                d=self.direction(self.t.pos(),nchoice[0])
+                if not self.dig(d)==self.dig(d):
+                    self.create()
+                    
+                
+
