@@ -43,6 +43,7 @@ class NewVisitorTest(LiveServerTestCase):  #1
         inputbox.send_keys(Keys.ENTER)
 
         edith_list_url = self.browser.current_url
+        print(edith_list_url)
         self.assertRegex(edith_list_url, '/lists/.+') #1
         self.check_for_row_in_list_table('1: Buy peacock feathers')
 
@@ -97,6 +98,7 @@ class NewVisitorTest(LiveServerTestCase):  #1
 
         # Francis gets his own unique URL
         francis_list_url = self.browser.current_url
+        print(francis_list_url)
         self.assertRegex(francis_list_url, '/lists/.+')
         self.assertNotEqual(francis_list_url, edith_list_url)
 
