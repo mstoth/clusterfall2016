@@ -16,4 +16,4 @@ class Migration(migrations.Migration):
             name='list',
             field=models.ForeignKey(to='lists.List', default=None),
         ),
-    ]
+    ]   

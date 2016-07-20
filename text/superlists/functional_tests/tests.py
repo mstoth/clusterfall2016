@@ -109,6 +109,5 @@ class NewVisitorTest(LiveServerTestCase):  #1
         # Satisfied, they both go back to sleep
 
 
-        self.fail('Finish the test!')
         
         
