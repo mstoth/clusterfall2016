@@ -15,6 +15,7 @@ class Parent:        # define parent class
 class Child(Parent): # define child class
    def __init__(self):
       print("Calling child constructor")
+      Parent.__init__(self)
 
    def childMethod(self):
       print('Calling child method')
