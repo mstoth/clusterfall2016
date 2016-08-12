@@ -21,3 +21,23 @@ class Maze3():
         self.size=size
         self.pathWidth=pathWidth
         self.reset()
+
+    def reset(self):
+        self.s = turtle.Screen()
+        self.s.window_width = self.size
+        self.s.window_height = self.size
+        self.s.clear()
+        self.s.bgcolor('blue')
+        self.t = turtle.Turtle()
+        self.t.penup()
+        self.s.register_shape("custom",((self.pathWidth/2,self.pathWidth/2),\
+                                        (-self.pathWidth/2,self.pathWidth/2),\
+                                        (-self.pathWidth/2,-self.pathWidth/2),(self.pathWidth/2,-self.pathWidth/2),\
+                                        (self.pathWidth/2,self.pathWidth/2)))
+        self.t.shape("custom")
+        self.matrix = [[1 for i in range(int(self.size/self.pathWidth))] for j in range(int(self.size/self.pathWidth))]
+        self.t.goto(-(self.size/2-self.pathWidth/2),self.size/2-self.pathWidth/2)
+        self.matrix[0][0]=EMPTY
+        self.home = self.t.pos()
+
+        
