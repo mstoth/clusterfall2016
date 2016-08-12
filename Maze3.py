@@ -40,4 +40,12 @@ class Maze3():
         self.matrix[0][0]=EMPTY
         self.home = self.t.pos()
 
+    def getMatrixValueAt(self,pos):
+        x = int(int(pos[0]+self.size/2)/self.pathWidth)
+        y = int((self.size/2 - pos[1])/self.pathWidth)
+        if x < 0 or y < 0 or x > self.size/self.pathWidth-1 or y > self.size/self.pathWidth-1:
+            return -1
+        else:
+            return self.matrix[x][y]
+
         
