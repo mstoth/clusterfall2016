@@ -38,6 +38,15 @@ class testMaze(unittest.TestCase):
         ypos = self.m.size/2-10
         assert self.m.getMatrixValueAt((int(xpos),int(ypos)))==0 
 
+    def testDirection(self):
+        self.m.reset()
+        self.m.t.goto(0,0)
+        assert self.m.direction((0,0),(10,0))==EAST
+        assert self.m.direction((0,0),(-10,0))==WEST
+        assert self.m.direction((0,0),(0,10))==NORTH
+        assert self.m.direction((0,0),(0,-10))==SOUTH
+
+
 if __name__=="__main__":
     unittest.main()
     

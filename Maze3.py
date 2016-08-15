@@ -48,4 +48,21 @@ class Maze3():
         else:
             return self.matrix[x][y]
 
-        
+
+    def direction(self,pos1,pos2):
+        p1x=int(pos1[0]); p1y=int(pos1[1]); p2x=pos2[0]; p2y=pos2[1]
+        if p1x==p2x and p1y==p2y:
+            return 0
+        """ returns the direction from position 1 to position 2 """
+        if p1x==p2x: # x position the same, either NORTH or SOUTH
+            if p2y>p1y: # NORTH
+                return NORTH
+            else:
+                return SOUTH
+        else:
+            if p2x>p1x: # EAST
+                return EAST
+            else:
+                return WEST
+
+
