@@ -5,15 +5,15 @@
   </head>
 
   <body>
-    <h1>Home</h1>
+    <h1>Computers</h1>
 
-
+    <img src="/static/homebrew.png"></img>
 
     <hr>
     <address><a href="mailto:michaeltoth@Michaels-MacBook.local">Michael Toth</a></address>
 <!-- Created: Fri Sep  9 04:41:23 EDT 2016 -->
 <!-- hhmts start -->
-Last modified: Fri Sep  9 04:41:26 EDT 2016
+Last modified: Mon Sep 12 12:37:33 PDT 2016
 <!-- hhmts end -->
   </body>
 </html>

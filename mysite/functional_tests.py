@@ -33,14 +33,15 @@ class NewVisitorTest(unittest.TestCase):
         web site project.  It is a travelogue of the history of computers.
         
         The first thing you see is the home page which shows my homebrew
-        computer.  
+        computer and a heading, "The History of Computing" 
         
         """
 
         self.browser.get('http://localhost:8000/index.html')
         m=self.browser.find_element_by_tag_name('img')
         self.assertIn('homebrew.png',m.get_attribute('src'))
-
+        h=self.browser.find_element_by_css_selector('h1')
+        self.assertIn("The History of Computing",h.text)
 
 if __name__=="__main__":
 	unittest.main(warnings="ignore")
