@@ -1,4 +1,4 @@
-from Maze import *
+from Maze3 import *
 import random
 import turtle
 import unittest
@@ -14,7 +14,7 @@ class testMaze(unittest.TestCase):
 
     def setUp(self):
         # this checks for a Maze class
-        self.m=Maze(SIZE)
+        self.m=Maze3(SIZE)
 
     def testLeaveVisited(self):
         self.m.reset()
